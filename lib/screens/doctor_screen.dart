@@ -6,7 +6,7 @@ import 'detailDoctor.dart';
 //import '../DeliveryScreen.dart';
 
 class DoctorScreen extends StatefulWidget {
-  final List<Doctor> doctor;
+  final Doctor doctor;
   final String title;
   DoctorScreen({this.doctor, Especialidad especialidad,this.title});
 
@@ -30,7 +30,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
       backgroundColor: Colors.blue[300],
       body: ListView.builder(
         padding: EdgeInsets.only(top: 25.0, bottom: 15.0),
-        itemCount: widget.doctor.length,
+        itemCount: doctores.length,
         itemBuilder: (BuildContext context, int index) {
           Doctor doctor = doctores[index];
           return GestureDetector(
@@ -58,76 +58,78 @@ class _DoctorScreenState extends State<DoctorScreen> {
                     ),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(100.0, 10.0, 10.0, 10.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(height: 5.0,),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  width: 180.0,
-                                  child: Text(
-                                    widget.doctor[index].nombre,
-                                    style: TextStyle(
+                      child: Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: 5.0,),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    width: 180.0,
+                                    child: Text(
+                                      doctor.nombre,
+                                      style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Container(
+                                    width: 250.0,
+                                    child: Text(
+                                      doctor.clinica,
+                                      style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w400,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  width: 250.0,
-                                  child: Text(
-                                    widget.doctor[index].clinica,
-                                    style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w400,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                            SizedBox(height: 5.0,),
+                            Text(
+                              doctor.especialidad,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            Expanded(
+                              child: Container(
+                                width: 250.0,
+                                child: Image(
+                                  width: 110.0,
+                                  image: AssetImage(
+                                    doctor.seguroUrl,
                                   ),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 5.0,),
-                          Text(
-                            widget.doctor[index].especialidad,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16.0,
                             ),
-                          ),
-                          SizedBox(height: 10.0),
-                          Expanded(
-                            child: Container(
-                              width: 250.0,
-                              child: Image(
-                                width: 110.0,
-                                image: AssetImage(
-                                  widget.doctor[index].seguroUrl,
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -140,7 +142,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                     child: Image(
                       width: 110.0,
                       image: AssetImage(
-                        widget.doctor[index].imageUrl,
+                        doctor.imageUrl,
                       ),
                       fit: BoxFit.cover,
                     ),

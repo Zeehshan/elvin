@@ -44,7 +44,7 @@ class _EspecialidadScreenState extends State<EspecialidadScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DoctorScreen(
-                      doctor: especialidad.doctores,
+                      doctor: doctor,
                       title: especialidad.nombre,
                       ),
                     ),
