@@ -6,7 +6,7 @@ import 'detailDoctor.dart';
 //import '../DeliveryScreen.dart';
 
 class DoctorScreen extends StatefulWidget {
-  final Doctor doctor;
+  final List<Doctor> doctor;
   final String title;
   DoctorScreen({this.doctor, Especialidad especialidad,this.title});
 
@@ -30,9 +30,9 @@ class _DoctorScreenState extends State<DoctorScreen> {
       backgroundColor: Colors.blue[300],
       body: ListView.builder(
         padding: EdgeInsets.only(top: 25.0, bottom: 15.0),
-        itemCount: doctores.length,
+        itemCount: widget.doctor.length,
         itemBuilder: (BuildContext context, int index) {
-          Doctor doctor = doctores[index];
+          if(widget.doctor[index].especialidad.toLowerCase() == widget.title.toLowerCase())
           return GestureDetector(
             onTap: () => Navigator.push(
               context,
@@ -74,7 +74,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                   Container(
                                     width: 180.0,
                                     child: Text(
-                                      doctor.nombre,
+                                      widget.doctor[index].nombre,
                                       style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,
@@ -95,7 +95,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                   child: Container(
                                     width: 250.0,
                                     child: Text(
-                                      doctor.clinica,
+                                      widget.doctor[index].clinica,
                                       style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w400,
@@ -109,7 +109,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                             ),
                             SizedBox(height: 5.0,),
                             Text(
-                              doctor.especialidad,
+                              widget.doctor[index].especialidad,
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16.0,
@@ -122,7 +122,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                 child: Image(
                                   width: 110.0,
                                   image: AssetImage(
-                                    doctor.seguroUrl,
+                                    widget.doctor[index].seguroUrl,
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -142,7 +142,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                     child: Image(
                       width: 110.0,
                       image: AssetImage(
-                        doctor.imageUrl,
+                        widget.doctor[index].imageUrl,
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -151,6 +151,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
               ],
             ),
           );
+          return Container();
         },
       ),
     );
