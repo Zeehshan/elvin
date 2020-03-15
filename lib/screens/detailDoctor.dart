@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_elevinp/models/especialidad_modelo.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import 'doctor.dart';
+class DetailDoctor extends StatefulWidget {
+  final Doctor doctor;
+  const DetailDoctor({Key key, this.doctor}) : super(key: key);
 
-class DetailDoctor extends StatelessWidget {
-  final Doctors doctors;
-  DetailDoctor({this.doctors});
+  @override
+  _DetailDoctorState createState() => _DetailDoctorState();
+}
+
+class _DetailDoctorState extends State<DetailDoctor> {
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  GoogleMapController mapController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    markers[MarkerId(widget.doctor.imageUrl)] = Marker(
+      markerId: MarkerId(widget.doctor.imageUrl),
+      draggable: true,
+      position: LatLng(
+        widget.doctor.lat,
+        widget.doctor.lng,
+      ),
+      icon: BitmapDescriptor.defaultMarkerWithHue(
+        BitmapDescriptor.hueOrange,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -70,7 +95,7 @@ class DetailDoctor extends StatelessWidget {
                               CircleAvatar(
                                 radius: 40,
                                 backgroundImage:
-                                    AssetImage('assets/images/dr_6.jpg'),
+                                    AssetImage(widget.doctor.imageUrl),
                                 backgroundColor: Colors.black12,
                               ),
                               SizedBox(width: 10),
@@ -80,7 +105,7 @@ class DetailDoctor extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      'Dra. Yesenia Tavares',
+                                      widget.doctor.nombre,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
                                       style: GoogleFonts.roboto(
@@ -89,7 +114,7 @@ class DetailDoctor extends StatelessWidget {
                                     ),
                                     SizedBox(height: 10.0),
                                     Text(
-                                      'Cardiólogo',
+                                      widget.doctor.especialidad,
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.roboto(
                                         fontWeight: FontWeight.w500,
@@ -98,7 +123,7 @@ class DetailDoctor extends StatelessWidget {
                                     ),
                                     SizedBox(height: 6.0),
                                     Text(
-                                      'Clínica Altagracia',
+                                      widget.doctor.clinica,
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.roboto(
                                         fontWeight: FontWeight.w500,
@@ -212,7 +237,23 @@ class DetailDoctor extends StatelessWidget {
                               ),
                               SizedBox(height: 10.0),
                               Text(
-                                'Av. Sabana Larga #98,\nEnsanche Ozama, Santo Domingo Este\nTel. 809-596-9550',
+                                widget.doctor.direccion,
+                                style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17.0,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              Text(
+                                widget.doctor.ciudad,
+                                style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17.0,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              Text(
+                                'Tel. ${widget.doctor.telefono}',
                                 style: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 17.0,
@@ -229,11 +270,23 @@ class DetailDoctor extends StatelessWidget {
                               ),
                               SizedBox(height: 10.0),
                               Container(
-                                child: Image(
-                                  width: MediaQuery.of(context).size.width,
-                                  image: AssetImage(
-                                    'assets/images/clinicaaltagraciamap.png',
-                                  ),
+                                width: MediaQuery.of(context).size.width,
+                                height: 150,
+                                child: GoogleMap(
+                                    onMapCreated:(GoogleMapController controller) {
+                                      mapController = controller;
+                                    },
+                                    markers:Set<Marker>.of(markers.values),
+                                    initialCameraPosition: CameraPosition(
+                                      target: LatLng(
+                                        widget.doctor.lat,
+                                        widget.doctor.lng,
+                                      ),
+                                      zoom: 16.4746,
+                                    ),
+                                    mapToolbarEnabled: true,
+                                    myLocationEnabled: true,
+                                    myLocationButtonEnabled: true
                                 ),
                               ),
                               SizedBox(height: 25.0),
@@ -248,7 +301,7 @@ class DetailDoctor extends StatelessWidget {
                                 child: Image(
                                   width: MediaQuery.of(context).size.width,
                                   image: AssetImage(
-                                    'assets/images/seguro_2.jpg',
+                                    widget.doctor.seguroUrl,
                                   ),
                                 ),
                               ),

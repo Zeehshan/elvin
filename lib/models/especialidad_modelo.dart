@@ -1,6 +1,4 @@
 
-import 'doctor_modelo.dart';
-
 class Especialidad {
   String nombre;
   List<Doctor> doctores;
@@ -11,225 +9,174 @@ class Especialidad {
   });
 }
 
-//List<Doctor> doctores = [
-//  Doctor(
-//    imageUrl: 'assets/images/dr_1.jpg',
-//    nombre: 'Dra. Sandra Perez',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Clinica Dr. Abreu',
-//    seguroUrl: 'assets/images/seguro_1.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_2.jpg',
-//    nombre: 'Dra. Mariana Gomez',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Centro Medico UCE',
-//    seguroUrl: 'assets/images/seguro_2.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_4.jpg',
-//    nombre: 'Dr. Miguel Rodriguez',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Centro Medico Real',
-//    seguroUrl: 'assets/images/seguro_3.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_5.jpg',
-//    nombre: 'Dr. Roberto Marte',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Centro Medico Real',
-//    seguroUrl: 'assets/images/seguro_1.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_6.jpg',
-//    nombre: 'Dra. Yesenia Tavares',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Clinica Altagracia',
-//    seguroUrl: 'assets/images/seguro_2.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_3.jpg',
-//    nombre: 'Dra. Mireya Carrasco',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Clinica Universal',
-//    seguroUrl: 'assets/images/seguro_3.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_7.jpg',
-//    nombre: 'Dr. Francisco Vasquez',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Centro Medico UCE',
-//    seguroUrl: 'assets/images/seguro_1.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_8.jpg',
-//    nombre: 'Dr. Miguel Troncoso',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Centro Medico Dominicano',
-//    seguroUrl: 'assets/images/seguro_2.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_9.jpg',
-//    nombre: 'Dr. Luis Ricart',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Centro Medico Dominicano',
-//    seguroUrl: 'assets/images/seguro_3.jpg',
-//  ),
-//  Doctor(
-//    imageUrl: 'assets/images/dr_10.jpg',
-//    nombre: 'Dr. Tomás Rodriguez',
-//    especialidad: 'Cardiologo',
-//    clinica: 'Clinica Dr. Abel Gonzalez',
-//    seguroUrl: 'assets/images/seguro_1.jpg',
-//  ),
-//  ];
+class Doctor {
+  String imageUrl;
+  String nombre;
+  String especialidad;
+  String clinica;
+  String direccion;
+  String ciudad;
+  String telefono;
+  String seguroUrl;
+  double lat;
+  double lng;
 
-  List<Doctor> doctores1 = [
-  Doctor(
-    imageUrl: 'assets/images/jaragua_square_600.jpg',
-    nombre: 'Ana Mendez',
-    especialidad: 'Audiologo Clinico',
-  ),
-  Doctor(
-    imageUrl: 'assets/images/jaragua_square_600.jpg',
-    nombre: 'Manuel Tavares',
-    especialidad: 'Cardiologo',
-  ),
-  ];
-
+  Doctor({
+    this.imageUrl,
+    this.nombre,
+    this.especialidad,
+    this.clinica,
+    this.direccion,
+    this.ciudad,
+    this.telefono,
+    this.seguroUrl,
+    this.lat,
+    this.lng
+    });
+}
 
 List<Doctor> doctores = [
   Doctor(
     imageUrl: 'assets/images/dr_1.jpg',
     nombre: 'Dra. Sandra Perez',
-    especialidad: 'Cardiologo',
-    clinica: 'Clinica Dr. Abreu',
+    especialidad: 'Alergólogo',
+    clinica: 'Centro Medico Real',
+    direccion: 'Av. Rómulo Betancourt 515',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_1.jpg',
+    lat:37.0902,
+    lng: 95.7129
   ),
   Doctor(
     imageUrl: 'assets/images/dr_2.jpg',
     nombre: 'Dra. Mariana Gomez',
-    especialidad: 'Alergologo',
-    clinica: 'Centro Medico UCE',
+    especialidad: 'Alergólogo',
+    clinica: 'Clínica Altagracia',
+    direccion: 'Av Sabana Larga 90',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 699-3494',
     seguroUrl: 'assets/images/seguro_2.jpg',
-  ),
-  Doctor(
-    imageUrl: 'assets/images/dr_4.jpg',
-    nombre: 'Dr. Miguel Rodriguez',
-    especialidad: 'Anestesiologo',
-    clinica: 'Centro Medico Real',
-    seguroUrl: 'assets/images/seguro_3.jpg',
-  ),
-  Doctor(
-    imageUrl: 'assets/images/dr_5.jpg',
-    nombre: 'Dr. Roberto Marte',
-    especialidad: 'Cardiologo',
-    clinica: 'Centro Medico Real',
-    seguroUrl: 'assets/images/seguro_1.jpg',
+      lat:37.0902,
+      lng: 95.7129
   ),
   Doctor(
     imageUrl: 'assets/images/dr_6.jpg',
     nombre: 'Dra. Yesenia Tavares',
-    especialidad: 'Cardiologo',
-    clinica: 'Clinica Altagracia',
+    especialidad: 'Anestesiólogo',
+    clinica: 'Clínica Abreu',
+    direccion: 'Calle Arzobispo Portes 853',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 688-4411',
     seguroUrl: 'assets/images/seguro_2.jpg',
+      lat:37.0902,
+      lng: 95.7129
   ),
   Doctor(
     imageUrl: 'assets/images/dr_3.jpg',
     nombre: 'Dra. Mireya Carrasco',
-    especialidad: 'Cardiologo',
-    clinica: 'Clinica Universal',
+    especialidad: 'Anestesiólogo',
+    clinica: 'Centro Médico Dominicano',
+    direccion: 'Calle Luis F. Thomen 456',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 531-2800',
     seguroUrl: 'assets/images/seguro_3.jpg',
-  ),
-  Doctor(
-    imageUrl: 'assets/images/dr_7.jpg',
-    nombre: 'Dr. Francisco Vasquez',
-    especialidad: 'Cardiologo',
-    clinica: 'Centro Medico UCE',
-    seguroUrl: 'assets/images/seguro_1.jpg',
-  ),
-  Doctor(
-    imageUrl: 'assets/images/dr_8.jpg',
-    nombre: 'Dr. Miguel Troncoso',
-    especialidad: 'Cardiologo',
-    clinica: 'Centro Medico Dominicano',
-    seguroUrl: 'assets/images/seguro_2.jpg',
+      lat:37.0902,
+      lng: 95.7129
   ),
   Doctor(
     imageUrl: 'assets/images/dr_9.jpg',
     nombre: 'Dr. Luis Ricart',
-    especialidad: 'Cardiologo',
+    especialidad: 'Angiólogo',
     clinica: 'Centro Medico Dominicano',
+    direccion: 'Av. Rómulo Betancourt 515',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_3.jpg',
+      lat:37.0902,
+      lng: 95.7129
   ),
   Doctor(
     imageUrl: 'assets/images/dr_10.jpg',
     nombre: 'Dr. Tomás Rodriguez',
-    especialidad: 'Cardiologo',
+    especialidad: 'Angiólogo',
     clinica: 'Clinica Dr. Abel Gonzalez',
+    direccion: 'Av. Rómulo Betancourt 515',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_1.jpg',
+      lat:37.0902,
+      lng: 95.7129
+  ),
+  Doctor(
+    imageUrl: 'assets/images/dr_15.jpg',
+    nombre: 'Dr. Luis Ricart',
+    especialidad: 'Audiólogo Clinico',
+    clinica: 'Centro Medico Dominicano',
+    direccion: 'Av. Rómulo Betancourt 515',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 537-3940',
+    seguroUrl: 'assets/images/seguro_3.jpg',
+      lat:37.0902,
+      lng: 95.7129
+  ),
+  Doctor(
+    imageUrl: 'assets/images/dr_16.jpg',
+    nombre: 'Dr. Tomás Rodriguez',
+    especialidad: 'Audiólogo Clinico',
+    clinica: 'Clinica Dr. Abel Gonzalez',
+    direccion: 'Av. Rómulo Betancourt 515',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 537-3940',
+    seguroUrl: 'assets/images/seguro_1.jpg',
+      lat:37.0902,
+      lng: 95.7129
+  ),
+  Doctor(
+    imageUrl: 'assets/images/dr_19.jpg',
+    nombre: 'Dr. Luis Ricart',
+    especialidad: 'Cardiólogo',
+    clinica: 'Centro Medico Dominicano',
+    direccion: 'Av. Rómulo Betancourt 515',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 537-3940',
+    seguroUrl: 'assets/images/seguro_3.jpg',
+      lat:37.0902,
+      lng: 95.7129
+  ),
+  Doctor(
+    imageUrl: 'assets/images/dr_20.jpg',
+    nombre: 'Dr. Tomás Rodriguez',
+    especialidad: 'Cardiólogo',
+    clinica: 'Clinica Dr. Abel Gonzalez',
+    direccion: 'Av. Rómulo Betancourt 515',
+    ciudad: 'Santo Domingo',
+    telefono: '(809) 537-3940',
+    seguroUrl: 'assets/images/seguro_1.jpg',
+      lat:37.0902,
+      lng: 95.7129
   ),
 ];
 
 List<Especialidad> especialidades = [
   Especialidad(
-    nombre: 'Alergologo',
+    nombre: 'Alergólogo',
     doctores: doctores,
   ),
   Especialidad(
-    nombre: 'Anestesiologo',
+    nombre: 'Anestesiólogo',
     doctores: doctores,
   ),
   Especialidad(
-    nombre: 'Angiologo',
+    nombre: 'Angiólogo',
     doctores: doctores,
   ),
   Especialidad(
-    nombre: 'Audiologo Clinico',
+    nombre: 'Audiólogo Clinico',
     doctores: doctores,
   ),
   Especialidad(
-    nombre: 'Cardiologo',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano Bariátrico',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano Cardiovascular',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano Craneofacial',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano de Mano',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano Estético',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano General',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano Laparoscópico',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano Maxilofacial',
-    doctores: doctores,
-  ),
-  Especialidad(
-    nombre: 'Cirujano Oftalmólogo',
+    nombre: 'Cardiólogo',
     doctores: doctores,
   ),
 ];

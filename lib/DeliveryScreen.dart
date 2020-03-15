@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_elevinp/screens/home_screen.dart';
+import 'package:flutter_app_elevinp/widgets/welcome_screen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'DirectionsProvider.dart';
 
 class DeliveryScreen extends StatefulWidget {
@@ -20,63 +20,60 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('DIRECTORIO MEDICO'),
       ),
-      body: SingleChildScrollView(
-        child: Consumer<DirectionProvider>(
-          builder: (BuildContext context, DirectionProvider api, Widget child) {
-            return Container(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height/2,
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        heightFactor: 0.3,
-                        widthFactor: 2.5,
-                        child: Stack(
-                          children: <Widget>[
-                            GoogleMap(
-                                initialCameraPosition: CameraPosition(
-                                  target: widget.fromPoint,
-                                  zoom: 12,
-                                ),
-                                markers: _createMarkers(),
-                                polylines: api.currentRoute,
-                                onMapCreated: _onMapCreated,
-                                mapToolbarEnabled: true,
-                                myLocationEnabled: true,
-                                myLocationButtonEnabled: true),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: FloatingActionButton(
-                                  onPressed: _centerView,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.padded,
-                                  backgroundColor: Colors.blue,
-                                  child: const Icon(Icons.directions, size: 36.0),
-                                ),
+      body: Consumer<DirectionProvider>(
+        builder: (BuildContext context, DirectionProvider api, Widget child) {
+          return Container(
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      heightFactor: 0.3,
+                      widthFactor: 2.5,
+                      child: Stack(
+                        children: <Widget>[
+                          GoogleMap(
+                              initialCameraPosition: CameraPosition(
+                                target: widget.fromPoint,
+                                zoom: 12,
+                              ),
+                              markers: _createMarkers(),
+                              polylines: api.currentRoute,
+                              onMapCreated: _onMapCreated,
+                              mapToolbarEnabled: true,
+                              myLocationEnabled: true,
+                              myLocationButtonEnabled: true),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: FloatingActionButton(
+                                onPressed: _centerView,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.padded,
+                                backgroundColor: Colors.blue,
+                                child: const Icon(Icons.directions, size: 36.0),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height/2,
-                        child: Container(
-                      color: Colors.blue,
-                      child: HomeScreen(),
-                    )),
-                  ],
-                ));
-          },
-        ),
+                  ),
+                  Expanded(
+                      child: Container(
+                    color: Colors.blue,
+                    child: DestinationWelcome(),
+                    //child: HomeScreen(),
+                    
+                  )),
+                ],
+              ));
+        },
       ),
     );
   }

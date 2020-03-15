@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_elevinp/models/doctor_modelo.dart';
 import 'package:flutter_app_elevinp/models/especialidad_modelo.dart';
-
 import 'detailDoctor.dart';
 //import '../DeliveryScreen.dart';
 
@@ -37,7 +35,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailDoctor(),
+                builder: (context) => DetailDoctor(doctor: widget.doctor[index]),
               ),
             ),
             child: Stack(
