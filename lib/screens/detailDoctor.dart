@@ -1,13 +1,16 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_elevinp/models/especialidad_modelo.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailDoctor extends StatefulWidget {
   final Doctor doctor;
   const DetailDoctor({Key key, this.doctor}) : super(key: key);
-
   @override
   _DetailDoctorState createState() => _DetailDoctorState();
 }
@@ -15,11 +18,19 @@ class DetailDoctor extends StatefulWidget {
 class _DetailDoctorState extends State<DetailDoctor> {
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   GoogleMapController mapController;
+  CameraPosition _kGooglePlex =  CameraPosition(
+    target: LatLng(31.5204, 74.3587),
+    zoom: 14.4746,
+  );
+  Completer<GoogleMapController> _controller = Completer();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     markers[MarkerId(widget.doctor.imageUrl)] = Marker(
+      onTap: (){
+        _launchURL(widget.doctor.lat.toString(),widget.doctor.lng.toString());
+      },
       markerId: MarkerId(widget.doctor.imageUrl),
       draggable: true,
       position: LatLng(
@@ -27,9 +38,10 @@ class _DetailDoctorState extends State<DetailDoctor> {
         widget.doctor.lng,
       ),
       icon: BitmapDescriptor.defaultMarkerWithHue(
-        BitmapDescriptor.hueOrange,
+        BitmapDescriptor.hueGreen,
       ),
     );
+
   }
 
   @override
@@ -273,9 +285,9 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 150,
                                 child: GoogleMap(
-                                    onMapCreated:(GoogleMapController controller) {
-                                      mapController = controller;
-                                    },
+                                  zoomGesturesEnabled:false,
+                                  scrollGesturesEnabled:false,
+                                  mapType: MapType.normal,
                                     markers:Set<Marker>.of(markers.values),
                                     initialCameraPosition: CameraPosition(
                                       target: LatLng(
@@ -284,9 +296,11 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                       ),
                                       zoom: 16.4746,
                                     ),
-                                    mapToolbarEnabled: true,
-                                    myLocationEnabled: true,
-                                    myLocationButtonEnabled: true
+                                  myLocationEnabled: true,
+                                  myLocationButtonEnabled: true,
+                                  onMapCreated: (GoogleMapController controller) {
+                                    _controller.complete(controller);
+                                  },
                                 ),
                               ),
                               SizedBox(height: 25.0),
@@ -361,5 +375,19 @@ class _DetailDoctorState extends State<DetailDoctor> {
         )
       ],
     );
+  }
+  _launchURL(String val1, String val2) async {
+    var url = Platform.isIOS
+        ? 'https://maps.apple.com/?q=${val1.trim()},${val2.trim()}&z=20'
+        : "geo:${val1.trim()},${val2.trim()}?q=${val1.trim()},${val2.trim()}&z=48";
+//        : 'geo:${val1.trim()},${val2.trim()}?q=${val1.trim()},${val2.trim()}($address)?z=48';
+//    'google.streetview:cbll=${val1.trim()},${val2.trim()}?q=${val1.trim()},${val2.trim()}($address)';
+//    'geo:${val1.trim()},${val2.trim()}?q=${val1.trim()},${val2.trim()}?z=17';
+//    'google.navigation:q=${val1.trim()},${val2.trim()}';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
