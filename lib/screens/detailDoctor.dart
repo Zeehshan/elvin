@@ -290,11 +290,8 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                   mapType: MapType.normal,
                                     markers:Set<Marker>.of(markers.values),
                                     initialCameraPosition: CameraPosition(
-                                      target: LatLng(
-                                        widget.doctor.lat,
-                                        widget.doctor.lng,
-                                      ),
-                                      zoom: 16.4746,
+                                      target: LatLng(widget.doctor.lat, widget.doctor.lng),
+                                      zoom: 12,
                                     ),
                                   myLocationEnabled: true,
                                   myLocationButtonEnabled: true,

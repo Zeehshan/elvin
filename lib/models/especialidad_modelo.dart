@@ -45,8 +45,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_1.jpg',
-    lat:37.0902,
-    lng: 95.7129
+    lat:18.4777719,
+    lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_2.jpg',
@@ -57,8 +57,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 699-3494',
     seguroUrl: 'assets/images/seguro_2.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_6.jpg',
@@ -69,8 +69,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 688-4411',
     seguroUrl: 'assets/images/seguro_2.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_3.jpg',
@@ -81,8 +81,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 531-2800',
     seguroUrl: 'assets/images/seguro_3.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_9.jpg',
@@ -93,8 +93,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_3.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_10.jpg',
@@ -105,8 +105,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_1.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_15.jpg',
@@ -117,8 +117,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_3.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_16.jpg',
@@ -129,8 +129,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_1.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_19.jpg',
@@ -141,8 +141,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_3.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
   Doctor(
     imageUrl: 'assets/images/dr_20.jpg',
@@ -153,8 +153,8 @@ List<Doctor> doctores = [
     ciudad: 'Santo Domingo',
     telefono: '(809) 537-3940',
     seguroUrl: 'assets/images/seguro_1.jpg',
-      lat:37.0902,
-      lng: 95.7129
+      lat:18.4777719,
+      lng: -69.9300509
   ),
 ];
 
