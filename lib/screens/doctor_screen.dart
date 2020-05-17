@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_elevinp/models/especialidad_modelo.dart';
 import 'detailDoctor.dart';
@@ -6,7 +7,8 @@ import 'detailDoctor.dart';
 class DoctorScreen extends StatefulWidget {
   final List<Doctor> doctor;
   final String title;
-  DoctorScreen({this.doctor, Especialidad especialidad,this.title});
+  final String parentId;
+  DoctorScreen({this.doctor, Especialidad especialidad,this.title,this.parentId});
 
   @override
   _DoctorScreenState createState() => _DoctorScreenState();
@@ -15,6 +17,7 @@ class DoctorScreen extends StatefulWidget {
 class _DoctorScreenState extends State<DoctorScreen> {
   @override
   Widget build(BuildContext context) {
+    print(widget.parentId);
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -26,131 +29,128 @@ class _DoctorScreenState extends State<DoctorScreen> {
             onPressed: () => Navigator.pop(context, false),
           )),
       backgroundColor: Colors.blue[300],
-      body: ListView.builder(
-        padding: EdgeInsets.only(top: 25.0, bottom: 15.0),
-        itemCount: widget.doctor.length,
-        itemBuilder: (BuildContext context, int index) {
-          if(widget.doctor[index].especialidad.toLowerCase() == widget.title.toLowerCase())
-          return GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailDoctor(doctor: widget.doctor[index]),
-              ),
-            ),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                    margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
-                    height: 130.0,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black38,
-                          blurRadius: 3.0,
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection("doctors_list").snapshots(),
+          builder: (context, snapshot){
+          if(snapshot.hasError){}else if(snapshot.hasData){
+
+          }
+            if (snapshot.hasError)
+              return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),));
+            switch (snapshot.connectionState){
+              case ConnectionState.waiting: return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),));
+              default:
+                return SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Column(
+                        children: List.generate(snapshot.data.documents.length, ((index){
+                         return GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailDoctor(
+                        doctor: snapshot.data.documents,index: index,),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(100.0, 10.0, 10.0, 10.0),
-                      child: Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(height: 5.0,),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    width: 180.0,
-                                    child: Text(
-                                      widget.doctor[index].nombre,
-                                      style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600,
+                  ),
+                            child: Stack(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
+                                  height: 130.0,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black38,
+                                        blurRadius: 3.0,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(100.0, 10.0, 10.0, 10.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        SizedBox(height: 5.0,),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 180.0,
+                                              child: Text(
+                                                snapshot.data.documents[index]["doctor_data"]["name"],
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          width: 250.0,
+                                          child: Text(
+                                            snapshot.data.documents[index]["doctor_data"]["clinica"],
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                        SizedBox(height: 5.0,),
+                                        Text(
+                                          snapshot.data.documents[index]["doctor_data"]["especialidad"],
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                        SizedBox(height: 10.0),
+                                        Expanded(
+                                          child: Container(
+                                            width: 250.0,
+                                            child: Image.network(
+                                                snapshot.data.documents[index]["doctor_data"]["seguroUrl"]
+                                            )
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Container(
-                                    width: 250.0,
-                                    child: Text(
-                                      widget.doctor[index].clinica,
-                                      style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w400,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
+                                ),
+                                Positioned(
+                                  left: 20.0,
+                                  top: 15.0,
+                                  bottom: 15.0,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                      child: Image.network(
+                                          snapshot.data.documents[index]["doctor_data"]["photo"]
+                                      )
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5.0,),
-                            Text(
-                              widget.doctor[index].especialidad,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            SizedBox(height: 10.0),
-                            Expanded(
-                              child: Container(
-                                width: 250.0,
-                                child: Image(
-                                  width: 110.0,
-                                  image: AssetImage(
-                                    widget.doctor[index].seguroUrl,
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        }))
                       ),
-                    ),
+                    ],
                   ),
-                Positioned(
-                  left: 20.0,
-                  top: 15.0,
-                  bottom: 15.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image(
-                      width: 110.0,
-                      image: AssetImage(
-                        widget.doctor[index].imageUrl,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-          return Container();
-        },
+                );
+
+            }
+          }
       ),
     );
   }

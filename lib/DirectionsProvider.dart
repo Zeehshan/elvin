@@ -49,4 +49,9 @@ class DirectionProvider extends ChangeNotifier {
       print("ERRROR !!! ${result.status}");
     }
   }
+
+
+
+
+
 }

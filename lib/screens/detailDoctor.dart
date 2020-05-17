@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_elevinp/models/especialidad_modelo.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,8 +10,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailDoctor extends StatefulWidget {
-  final Doctor doctor;
-  const DetailDoctor({Key key, this.doctor}) : super(key: key);
+  final List<DocumentSnapshot> doctor;
+  final int index;
+  const DetailDoctor({Key key, this.doctor,this.index}) : super(key: key);
   @override
   _DetailDoctorState createState() => _DetailDoctorState();
 }
@@ -27,15 +29,15 @@ class _DetailDoctorState extends State<DetailDoctor> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    markers[MarkerId(widget.doctor.imageUrl)] = Marker(
+    markers[MarkerId(widget.doctor[widget.index].documentID)] = Marker(
       onTap: (){
-        _launchURL(widget.doctor.lat.toString(),widget.doctor.lng.toString());
+        _launchURL(widget.doctor[widget.index].data["doctor_data"]["doctor_data"]["lat"].toString(),widget.doctor[widget.index].data["doctor_data"]["lng"].toString());
       },
-      markerId: MarkerId(widget.doctor.imageUrl),
+      markerId: MarkerId(widget.doctor[widget.index].documentID),
       draggable: true,
       position: LatLng(
-        widget.doctor.lat,
-        widget.doctor.lng,
+        18.4777719,
+        -69.9300509
       ),
       icon: BitmapDescriptor.defaultMarkerWithHue(
         BitmapDescriptor.hueGreen,
@@ -106,9 +108,12 @@ class _DetailDoctorState extends State<DetailDoctor> {
                             children: <Widget>[
                               CircleAvatar(
                                 radius: 40,
-                                backgroundImage:
-                                    AssetImage(widget.doctor.imageUrl),
+                                child:
+                                    Image.network(widget.doctor[widget.index].data["doctor_data"]["photo"]),
                                 backgroundColor: Colors.black12,
+                              ),
+                              Container(
+
                               ),
                               SizedBox(width: 10),
                               Container(
@@ -117,7 +122,7 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      widget.doctor.nombre,
+                                      widget.doctor[widget.index].data["doctor_data"]["name"],
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
                                       style: GoogleFonts.roboto(
@@ -126,7 +131,7 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                     ),
                                     SizedBox(height: 10.0),
                                     Text(
-                                      widget.doctor.especialidad,
+                                      widget.doctor[widget.index].data["doctor_data"]["especialidad"],
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.roboto(
                                         fontWeight: FontWeight.w500,
@@ -135,7 +140,7 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                     ),
                                     SizedBox(height: 6.0),
                                     Text(
-                                      widget.doctor.clinica,
+                                      widget.doctor[widget.index].data["doctor_data"]["clinica"],
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.roboto(
                                         fontWeight: FontWeight.w500,
@@ -249,7 +254,7 @@ class _DetailDoctorState extends State<DetailDoctor> {
                               ),
                               SizedBox(height: 10.0),
                               Text(
-                                widget.doctor.direccion,
+                                widget.doctor[widget.index].data["doctor_data"]["direccion"],
                                 style: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 17.0,
@@ -257,7 +262,7 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                 ),
                               ),
                               Text(
-                                widget.doctor.ciudad,
+                                widget.doctor[widget.index].data["doctor_data"]["ciudad"],
                                 style: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 17.0,
@@ -265,7 +270,7 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                 ),
                               ),
                               Text(
-                                'Tel. ${widget.doctor.telefono}',
+                                'Tel. ${widget.doctor[widget.index].data["doctor_data"]["telefono"]}',
                                 style: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 17.0,
@@ -290,7 +295,8 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                   mapType: MapType.normal,
                                     markers:Set<Marker>.of(markers.values),
                                     initialCameraPosition: CameraPosition(
-                                      target: LatLng(widget.doctor.lat, widget.doctor.lng),
+                                      target: LatLng(double.parse(widget.doctor[widget.index].data["doctor_data"]["lat"])??18.4777719,
+                                          double.parse(widget.doctor[widget.index].data["doctor_data"]["lng"])??-69.9300509),
                                       zoom: 12,
                                     ),
                                   myLocationEnabled: true,
@@ -309,12 +315,7 @@ class _DetailDoctorState extends State<DetailDoctor> {
                                 ),
                               ),
                               Container(
-                                child: Image(
-                                  width: MediaQuery.of(context).size.width,
-                                  image: AssetImage(
-                                    widget.doctor.seguroUrl,
-                                  ),
-                                ),
+                                child: Image.network(widget.doctor[widget.index].data["doctor_data"]["seguroUrl"])
                               ),
                               SizedBox(height: 25.0),
                               Text(
